@@ -140,6 +140,7 @@ class Player2(BasePlayer):
 		# Discard-policy knobs. The reserve calculation is deliberately
 		# conservative because we cannot observe the true drawer size.
 		self.min_dist_samples = 10
+		self.max_discards = 1
 		# Require a meaningful improvement in expected thresholded shade gap.
 		self.replacement_gain_threshold = float(EMBARRASSMENT_THRESHOLD)
 		self.reserve_capacity_buffer = 4
@@ -311,9 +312,9 @@ class Player2(BasePlayer):
 		if not candidates:
 			return ()
 
-		# Discard only the largest improvement; lower index breaks exact ties.
-		_, index = max(candidates, key=lambda item: (item[0], -item[1]))
-		return (index,)
+		# Rank improvements; lower index breaks exact ties. Default limit is one.
+		ranked = sorted(candidates, key=lambda item: (-item[0], item[1]))
+		return tuple(index for _, index in ranked[: self.max_discards])
 
 	@staticmethod
 	def apply_action(
