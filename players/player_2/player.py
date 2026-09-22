@@ -131,7 +131,7 @@ class Player2(BasePlayer):
 
 		# Raw shades actually offered to us. The discard policy uses these
 		# observations rather than our own hypothetical post-action state.
-		self.raw_window_size = 40
+		self.raw_window_size = 10
 		self.raw_history: dict[str, deque[float]] = {
 			WHITE: deque(maxlen=self.raw_window_size),
 			BLACK: deque(maxlen=self.raw_window_size),

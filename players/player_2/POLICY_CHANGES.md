@@ -11,7 +11,7 @@ the projected same-colour shade distributions tightest.
 
 ## Which leftover to discard
 
-Record the last 40 observed shades of each colour. For each leftover, compare:
+Record the last 10 observed shades of each colour. For each leftover, compare:
 
 - its average mismatch against recent socks of the same colour;
 - a pristine sock's average mismatch against those same observations.
@@ -39,3 +39,21 @@ the matching estimate treats the eventual replacement as pristine and does not
 predict the exact delay. It also averages individual pair costs rather than
 predicting the best pair in a future hand. Budget protection is a heuristic,
 not a survival guarantee against arbitrary roommate spending.
+
+## Window comparison
+
+Both versions allow at most one discard and require an improvement greater than 6.
+These runs used 28 socks, 4 players, 4-sock hands, 730 days, and the same 30 seeds
+(4001–4030) for both windows. Budgets are shared by the household.
+
+| Household | Budget | Window 40 | Window 10 |
+|---|---:|---:|---:|
+| Four copies of our policy | $120 | 1,167 | 454 |
+| Four copies of our policy | $400 | 582 | 51 |
+| Our policy + three RandomPlayers | $120 | 1,778 | 1,414 |
+| Our policy + three RandomPlayers | $400 | 1,470 | 947 |
+
+Scores are mean cumulative embarrassment over the game, averaged across seeds.
+Clone results average all four players; mixed results report only our player.
+The window also feeds the replacement-reserve estimate.
+Allowing two discards gave no clear advantage, so we kept the one-discard limit.
